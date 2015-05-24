@@ -8,21 +8,20 @@
 
 namespace ga {
 
+    const float CROSSOVER_RATE = 0.6f;
+    const float MUTATION_RATE = 0.02f;
+
     class GeneticAlgorithm {
 
     public:
 
-        GeneticAlgorithm() {
-        }
+        GeneticAlgorithm();
 
-        virtual ~GeneticAlgorithm() {
-        }
+        virtual ~GeneticAlgorithm();
 
-        Individual &select(Population &population);
+    private:
 
-        void crossover(Chromosome &chromosome1, Chromosome &chromosome2);
-
-        void mutate(Chromosome &chromosome1, Chromosome &chromosome2);
+        float mutationRate_;
 
     };
 

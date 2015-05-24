@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include "Gene.hpp"
+#include "../utils/RandomGenerator.hpp"
 
 namespace ga {
 
@@ -22,11 +23,19 @@ namespace ga {
 
         unsigned long getGenesCount() const;
 
+        void mutate();
+
         void randomize();
+
+        void crossover(Chromosome &anotherChromosome);
 
         Gene &operator[](int index);
 
         const Gene &operator[](int index) const;
+
+    private:
+
+        void swapGenes(Gene &gene1, Gene &gene2);
 
     private:
 

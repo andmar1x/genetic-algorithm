@@ -8,12 +8,8 @@ class RandomGenerator {
 
 public:
 
-    RandomGenerator();
+    static int random(int min, int max);
 
-    virtual ~RandomGenerator();
-
-    int random(int min, int max);
-
-    float random(float min, float max);
+    static float random(float min, float max);
 
 };

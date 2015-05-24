@@ -2,8 +2,6 @@
 // Created by andmar1x on 5/14/15.
 //
 
-#pragma once
-
 #include "Individual.hpp"
 
 namespace ga {
@@ -22,16 +20,16 @@ namespace ga {
         fitness_ = val;
     }
 
-    Chromosome &Individual::getChromosome() {
+    std::shared_ptr<Chromosome> &Individual::getChromosome() {
         return chromosome_;
     }
 
-    void Individual::setChromosome(Chromosome &chromosome) {
+    void Individual::setChromosome(std::shared_ptr<Chromosome> &chromosome) {
         chromosome_ = chromosome;
     }
 
     void Individual::randomize() {
-        chromosome_.randomize();
+        chromosome_->randomize();
     }
 
     bool Individual::operator>(const Individual &rhs) const {

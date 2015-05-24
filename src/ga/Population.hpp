@@ -21,11 +21,11 @@ namespace ga {
 
         float getTotalFitness() const;
 
-        std::vector<Individual> &getIndividuals();
+        std::vector<std::shared_ptr<Individual>> &getIndividuals();
 
         void evolve();
 
-        Individual &select();
+        std::shared_ptr<Individual> &select();
 
         void randomize();
 
@@ -35,11 +35,11 @@ namespace ga {
 
         Population &operator=(const Population &rhs);
 
-        Individual &operator[](int index);
+        std::shared_ptr<Individual> &operator[](int index);
 
     private:
 
-        std::vector<Individual> individuals_;
+        std::vector<std::shared_ptr<Individual>> individuals_;
 
     };
 

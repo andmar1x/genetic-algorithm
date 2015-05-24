@@ -10,13 +10,13 @@
 
 namespace ga {
 
-    Chromosome::Chromosome(unsigned long geneCount) : genes_(std::vector<Gene>(geneCount, Gene())) {
+    Chromosome::Chromosome(unsigned long geneCount) : genes_(std::vector<std::shared_ptr<Gene>>(geneCount, std::make_shared<Gene>())) {
     }
 
     Chromosome::~Chromosome() {
     }
 
-    std::vector<Gene> &Chromosome::getGenes() {
+    std::vector<std::shared_ptr<Gene>> &Chromosome::getGenes() {
         return genes_;
     }
 
@@ -27,38 +27,40 @@ namespace ga {
     void Chromosome::mutate() {
         for (auto &gene : genes_) {
             if (RandomGenerator::random(0.0f, 1.0f) < MUTATION_RATE) {
-                gene.randomize();
+                gene->randomize();
             }
         }
     }
 
     void Chromosome::randomize() {
         for (auto &gene : genes_) {
-            gene.randomize();
+            gene->randomize();
         }
     }
 
-    void Chromosome::crossover(Chromosome &anotherChromosome) {
+    void Chromosome::crossover(std::shared_ptr<Chromosome> &anotherChromosome) {
         auto randomVal = RandomGenerator::random(0.0f, 1.0f);
         if (randomVal < CROSSOVER_RATE) {
-            int count = (int) std::min(getGenesCount(), anotherChromosome.getGenesCount());
+            int count = (int) std::min(getGenesCount(), anotherChromosome->getGenesCount());
             int start = RandomGenerator::random(0, count - 1);
             for (auto i = start; i < count; ++i) {
-                swapGenes(operator[](i), anotherChromosome[i]);
+                swapGenes(operator[](i), anotherChromosome->operator[](i));
             }
         }
+        mutate();
+        anotherChromosome->mutate();
     }
 
-    Gene &Chromosome::operator[](int index) {
+    std::shared_ptr<Gene> &Chromosome::operator[](int index) {
         return genes_[index];
     }
 
-    const Gene &Chromosome::operator[](int index) const {
+    const std::shared_ptr<Gene> &Chromosome::operator[](int index) const {
         return genes_[index];
     }
 
-    void Chromosome::swapGenes(Gene &gene1, Gene &gene2) {
-        Gene temp(gene1);
+    void Chromosome::swapGenes(std::shared_ptr<Gene> &gene1, std::shared_ptr<Gene> &gene2) {
+        std::shared_ptr<Gene> temp(gene1);
         gene1 = gene2;
         gene2 = temp;
     }

@@ -19,34 +19,31 @@ namespace ga {
     }
 
     float Population::getTotalFitness() const {
-        auto fitness = 0;
+        auto fitness = 0.0f;
         for (auto &individual : individuals_) {
-            fitness += individual.getFitness();
+            fitness += individual->getFitness();
         }
-
         return fitness;
     }
 
-    std::vector<Individual> &Population::getIndividuals() {
+    std::vector<std::shared_ptr<Individual>> &Population::getIndividuals() {
         return individuals_;
     }
 
     void Population::evolve() {
-        std::vector<Individual> newGeneration;
+        std::vector<std::shared_ptr<Individual>> newGeneration;
         while (newGeneration < individuals_) {
-            Chromosome chromosome1 = select().getChromosome();
-            Chromosome chromosome2 = select().getChromosome();
-            chromosome1.crossover(chromosome2);
-            chromosome1.mutate();
-            chromosome2.mutate();
+            std::shared_ptr<Chromosome> chromosome1 = select()->getChromosome();
+            std::shared_ptr<Chromosome> chromosome2 = select()->getChromosome();
+            chromosome1->crossover(chromosome2);
 
-            Individual newIndividual1;
-            newIndividual1.setChromosome(chromosome1);
+            std::shared_ptr<Individual> newIndividual1 = std::make_shared<Individual>();
+            newIndividual1->setChromosome(chromosome1);
             // TODO set fitness
             newGeneration.push_back(newIndividual1);
             if (newGeneration < individuals_) {
-                Individual newIndividual2;
-                newIndividual2.setChromosome(chromosome2);
+                std::shared_ptr<Individual> newIndividual2 = std::make_shared<Individual>();
+                newIndividual2->setChromosome(chromosome2);
                 // TODO set fitness
                 newGeneration.push_back(newIndividual2);
             }
@@ -55,12 +52,12 @@ namespace ga {
         sort();
     }
 
-    Individual &Population::select() {
+    std::shared_ptr<Individual> &Population::select() {
         auto totalFitness = getTotalFitness();
         auto ballPos = RandomGenerator::random(0.0f, totalFitness);
         auto sum = 0.0f;
         for (auto &individual : individuals_) {
-            sum += individual.getFitness();
+            sum += individual->getFitness();
             if (ballPos <= sum) {
                 return individual;
             }
@@ -69,7 +66,7 @@ namespace ga {
 
     void Population::randomize() {
         for (auto &individual : individuals_) {
-            individual.randomize();
+            individual->randomize();
         }
     }
 
@@ -89,7 +86,7 @@ namespace ga {
         return *this;
     }
 
-    Individual &Population::operator[](int index) {
+    std::shared_ptr<Individual> &Population::operator[](int index) {
         return individuals_[index];
     }
 }

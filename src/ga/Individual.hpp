@@ -20,9 +20,9 @@ namespace ga {
 
         void setFitness(float val);
 
-        Chromosome &getChromosome();
+        std::shared_ptr<Chromosome> &getChromosome();
 
-        void setChromosome(Chromosome &chromosome);
+        void setChromosome(std::shared_ptr<Chromosome> &chromosome);
 
         void randomize();
 
@@ -35,7 +35,7 @@ namespace ga {
     private:
 
         float fitness_;
-        Chromosome chromosome_;
+        std::shared_ptr<Chromosome> chromosome_;
 
     };
 

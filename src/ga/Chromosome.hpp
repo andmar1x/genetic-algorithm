@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
+#include <bits/shared_ptr.h>
 #include "Gene.hpp"
 #include "../utils/RandomGenerator.hpp"
 
@@ -19,7 +21,7 @@ namespace ga {
 
         virtual ~Chromosome();
 
-        std::vector<Gene> &getGenes();
+        std::vector<std::shared_ptr<Gene>> &getGenes();
 
         unsigned long getGenesCount() const;
 
@@ -27,19 +29,19 @@ namespace ga {
 
         void randomize();
 
-        void crossover(Chromosome &anotherChromosome);
+        void crossover(std::shared_ptr<Chromosome> &anotherChromosome);
 
-        Gene &operator[](int index);
+        std::shared_ptr<Gene> &operator[](int index);
 
-        const Gene &operator[](int index) const;
-
-    private:
-
-        void swapGenes(Gene &gene1, Gene &gene2);
+        const std::shared_ptr<Gene> &operator[](int index) const;
 
     private:
 
-        std::vector<Gene> genes_;
+        void swapGenes(std::shared_ptr<Gene> &gene1, std::shared_ptr<Gene> &gene2);
+
+    private:
+
+        std::vector<std::shared_ptr<Gene>> genes_;
 
     };
 

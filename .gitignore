@@ -1,0 +1,14 @@
+*.iml
+
+# User-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+
+# Linux
+
+*~
+
+# OS X
+
+.DS_Store

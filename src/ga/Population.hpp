@@ -23,11 +23,13 @@ namespace ga {
 
         std::vector<Individual> &getIndividuals();
 
-        void addIndividual(Individual &individual);
+        void evolve();
+
+        Individual &select();
 
         void randomize();
 
-        void sortPopulation();
+        void sort();
 
         bool operator<(const Population &rhs) const;
 

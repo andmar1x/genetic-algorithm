@@ -1,17 +1,4 @@
+.idea/
 *.iml
-
-# User-specific stuff:
-# .idea/dictionaries
-# .idea/misc.xml
-# .idea/modules.xml
-# .idea/tasks.xml
-# .idea/vcs.xml
-# .idea/workspace.xml
-
-# Linux
-
 *~
-
-# OS X
-
 .DS_Store
